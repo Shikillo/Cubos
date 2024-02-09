@@ -1,0 +1,18 @@
+-- turtlePositionSender.lua
+-- This program gets the Turtle's position and sends it to a server
+
+local serverID = 1 -- The ID of the server computer; change this to your server's ID
+
+while true do
+    local x, y, z = gps.locate(5)
+    if not x then
+        print("GPS location not available.")
+        return
+    end
+
+    rednet.open("right") -- Open the modem on the right side; adjust as necessary
+    rednet.send(serverID, {x = x, y = y, z = z}, "TURTLE_POSITION")
+    rednet.close("right")
+    
+    sleep(5) -- Wait for 5 seconds before sending the next position
+end
