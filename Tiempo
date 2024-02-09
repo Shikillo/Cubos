@@ -1,0 +1,17 @@
+-- Function to convert Minecraft ticks to hours and minutes
+local function getMinecraftTime()
+    local time = os.time() -- Get the Minecraft time in ticks
+    local hours = math.floor((time / 1000 + 6) % 24) -- Minecraft starts the day at 6 AM
+    local minutes = math.floor((time % 1000) / 1000 * 60)
+    return hours, minutes
+end
+
+-- Main loop
+while true do
+    monitor.clear() -- Clear the monitor
+    local hours, minutes = getMinecraftTime()
+    -- Display the time in HH:MM format
+    monitor.setCursorPos(1, 1)
+    monitor.write(string.format("%02d:%02d", hours, minutes))
+    sleep(60) -- Update the time every 60 seconds
+end
